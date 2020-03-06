@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'adjusted_cost_base'
+
+options = { acb: 0, shares: 0 }
+
+CLI = OptionParser.new do |opts|
+  opts.banner = 'Usage: acb [options] <TRANSACTIONS> <SYMBOL>'
+
+  opts.on('--acb[=ACB]', Integer, 'Initial total Adjusted Cost Base (default: 0)') do |acb|
+    options[:acb] = acb
+  end
+
+  opts.on('--shares[=SHARES]', Integer, 'Initial quantity of shares (default: 0)') do |shares| options[:shares] = shares
+  end
+
+  opts.on('-h', '--help', "Prints this help") do
+    puts opts
+    exit
+  end
+
+  opts.on_tail('-v', '--version', 'Show version') do
+    puts "adjusted_cost_base #{AdjustedCostBase::VERSION}"
+    exit
+  end
+end
+
+CLI.parse!
+
+if ARGV.size == 2
+  transactions_file, symbol = ARGV
+  transactions = AdjustedCostBase::Transactions.new.parse_file(transactions_file)
+
+  calculator = AdjustedCostBase::Calculator.new(transactions)
+  calculator.calculate(symbol, initial_acb: options[:acb], initial_shares: options[:shares])
+else
+  puts CLI
+end

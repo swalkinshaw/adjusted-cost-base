@@ -1,0 +1,27 @@
+PATH
+  remote: .
+  specs:
+    adjusted_cost_base (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.2)
+    method_source (0.9.2)
+    minitest (5.14.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    rake (13.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  adjusted_cost_base!
+  minitest (~> 5.0)
+  pry
+  rake (~> 13.0)
+
+BUNDLED WITH
+   1.17.3
