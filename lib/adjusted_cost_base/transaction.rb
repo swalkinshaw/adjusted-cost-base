@@ -15,11 +15,16 @@ Transaction = Struct.new(
   :share_balance,
   keyword_init: true
 ) do
+  def initialize(*args)
+    super
+    @total_acb = total_amount + commission
+  end
+
   def acb_per_share
-    @acb_per_share ||= total_acb / share_balance
+    total_acb / share_balance
   end
 
   def total_amount
-    @total_amount ||= price * quantity
+    @total_amount || price * quantity
   end
 end

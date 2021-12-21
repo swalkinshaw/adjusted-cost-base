@@ -41,7 +41,7 @@ module AdjustedCostBase
           price: price,
           commission: row['Commission'].abs,
           currency: row['Currency'],
-        )
+        ).freeze
       end
 
       transactions.sort_by!(&:settlement_date)
